@@ -1,7 +1,6 @@
 package com.bankoperations.test.mapper.Impl;
 
 import com.bankoperations.test.domain.Account;
-import com.bankoperations.test.domain.User;
 import com.bankoperations.test.dto.AccountDto;
 import com.bankoperations.test.dto.RegistrationDto;
 import com.bankoperations.test.mapper.AccountMapper;
@@ -10,6 +9,9 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -28,7 +30,7 @@ public class AccountMapperImpl implements AccountMapper {
                     Account source = context.getSource();
                     AccountDto destination = context.getDestination();
                     destination.setContacts(source.getContacts().stream().map(contactMapper::toDto).toList());
-                    destination.setBirthDate(source.getBirthDate().toString());
+                    destination.setBirthDate(Optional.ofNullable(source.getBirthDate()).map(LocalDate::toString).orElse(null));
                     return context.getDestination();
                 });
         mapper.createTypeMap(RegistrationDto.class, Account.class)
@@ -37,8 +39,8 @@ public class AccountMapperImpl implements AccountMapper {
                 .setPostConverter(context -> {
                     RegistrationDto source = context.getSource();
                     Account destination = context.getDestination();
-                    destination.setContacts(source.contacts().stream().map(contactMapper::toEntity).toList());
-                    destination.setBalance(source.initialDeposit());
+                    destination.setContacts(source.getContacts().stream().map(contactMapper::toEntity).toList());
+                    destination.setBalance(source.getInitialDeposit());
                     return context.getDestination();
                 });
     }

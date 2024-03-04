@@ -35,7 +35,7 @@ public class Account {
     private BigDecimal balance;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @Setter(AccessLevel.NONE)
     @Getter(AccessLevel.NONE)
     private User user;
@@ -43,16 +43,8 @@ public class Account {
     @Column(name = "user_id", unique = true)
     private Long userId;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @OneToMany(mappedBy = "account",fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     List<Contact> contacts;
-
-
-
-
-
-
-
 
 
 

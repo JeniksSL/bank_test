@@ -6,5 +6,5 @@ import com.bankoperations.test.repository.AccountRepository;
 import java.math.BigDecimal;
 
 public interface TransactionService {
-    void performTransaction(Account currentUserAccount, BigDecimal amount, Account acceptedUserAccount);
+    void performTransaction(Long currentUseId, BigDecimal amount, Long acceptedUserId);
 }

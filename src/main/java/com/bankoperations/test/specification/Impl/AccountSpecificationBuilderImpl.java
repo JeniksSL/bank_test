@@ -5,7 +5,7 @@ import com.bankoperations.test.domain.Contact;
 import com.bankoperations.test.dto.AccSearchRequestDto;
 import com.bankoperations.test.dto.core.ContactType;
 import com.bankoperations.test.specification.AccountSpecificationBuilder;
-import org.springframework.data.domain.Page;
+import jakarta.persistence.criteria.Join;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -48,10 +48,11 @@ public class AccountSpecificationBuilderImpl implements AccountSpecificationBuil
     }
 
     private Specification<Account> getByContact(String contact, ContactType contactType) {
-        return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.and(
-                criteriaBuilder.isMember(contact, root.get("contacts").get("contact")),
-                criteriaBuilder.isMember(contactType, root.get("contacts").get("contactType"))
-        );
+        return (root, criteriaQuery, criteriaBuilder) ->{
+            Join<Account, Contact> contacts = root.join("contacts");
+            return criteriaBuilder.and(criteriaBuilder.equal(contacts.get("contact"), contact), criteriaBuilder.equal(contacts.get("contactType"), contactType));
+        };
+
     }
 
 

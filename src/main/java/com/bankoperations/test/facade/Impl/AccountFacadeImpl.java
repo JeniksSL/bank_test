@@ -28,7 +28,6 @@ public class AccountFacadeImpl implements AccountFacade, RegistrationFacade {
     private final UserService userService;
     private final AccountMapper accountMapper;
     private final UserMapper userMapper;
-
     private final ContactMapper contactMapper;
 
     private final AccountSpecificationBuilder accountSpecificationBuilder;

@@ -19,6 +19,5 @@ public interface AccountService {
     void deleteContact(Long currentUserId, Long contactId);
 
     Contact replaceContact(Long currentUserId, Long contactId, Contact contact);
-
     Optional<Account> getByUserId(Long currentUserId);
 }

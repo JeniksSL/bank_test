@@ -7,16 +7,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import static com.bankoperations.test.controller.core.ControllerConst.API;
+
 @RestController
-@RequestMapping("fertilizers/products")
+@RequestMapping(API+"/registration")
 @RequiredArgsConstructor
 public class RegistrationController {
 
 private final RegistrationFacade accountFacade;
 
-    @PostMapping()
+    @PostMapping("/account")
     @ResponseStatus(HttpStatus.CREATED)
-    AccountDto resolveCase(@RequestBody RegistrationDto registrationDto){
+    AccountDto registerAccount(@RequestBody RegistrationDto registrationDto){
         return accountFacade.create(registrationDto);
     }
 

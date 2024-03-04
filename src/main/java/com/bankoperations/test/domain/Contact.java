@@ -25,16 +25,11 @@ public class Contact {
     @Column(name = "contact", nullable = false)
     private String contact;
 
-    @Column(name = "contact", nullable = false)
+    @Column(name = "contact_type", nullable = false)
     private ContactType contactType;
-
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
-    @Setter(AccessLevel.NONE)
-    @Getter(AccessLevel.NONE)
-    private User user;
+    @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
+    private Account account;
 
-    @Column(name = "user_id", unique = true)
-    private Long userId;
+
 }

@@ -1,1 +1,38 @@
+server:
+  port: 8080
+logging:
+  file:
+    name: log.log
+  level:
+    org.springframework.security: trace
+    root: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %logger{36} - %msg%n"
 
+
+
+spring:
+  flyway:
+    locations: classpath:db/migration
+  application:
+    name: account-service
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/account_db
+    username: postgres
+    password: 123
+  jpa:
+    hibernate:
+      connection:
+        provider_class: com.zaxxer.hikari.hibernate.HikariConnectionProvider
+deposit:
+  schedule:
+    period: 0 * * * * *
+  baseModifier: 1.05
+  maxModifier: 2.07
+jwt:
+  accessTokenMinutes: 15
+  refreshTokenDays: 30
+account:
+  contacts:
+    minValue: 1
